@@ -15,19 +15,18 @@
 	<%--Message: ${message}--%>
 	<spring:url value="/resources/css/style.css" var="mainCss" />
 	<link href="${mainCss}" rel="stylesheet" />
-
-	<div id="gameboard">
-		<img src="resources/images/leftScore.jpg" />
-		<div id="playerSection">
-			<img src="resources/images/topBoard.jpg" />
-			<img src="resources/images/topBoard.jpg" />
-			<img src="resources/images/topBoard.jpg" />
-			<img src="resources/images/topBoard.jpg" />
-			<img src="resources/images/topBoard.jpg" />
-			<img src="resources/images/topBoard.jpg" />
+	<h1>Mancala Game</h1>
+	<div class="grid">
+		<div>
+			<img class="score" src="resources/images/leftScore.jpg" />
 		</div>
-
-		<div id="playerSection">
+		<div class="board">
+			<img src="resources/images/topBoard.jpg" />
+			<img src="resources/images/topBoard.jpg" />
+			<img src="resources/images/topBoard.jpg" />
+			<img src="resources/images/topBoard.jpg" />
+			<img src="resources/images/topBoard.jpg" />
+			<img src="resources/images/topBoard.jpg" />
 			<img src="resources/images/bottomBoard.jpg" />
 			<img src="resources/images/bottomBoard.jpg" />
 			<img src="resources/images/bottomBoard.jpg" />
@@ -35,7 +34,9 @@
 			<img src="resources/images/bottomBoard.jpg" />
 			<img src="resources/images/bottomBoard.jpg" />
 		</div>
-		<img src="resources/images/rightScore.jpg" />
+		<div>
+			<img class="score" src="resources/images/rightScore.jpg" />
+		</div>
 	</div>
 </body>
 
