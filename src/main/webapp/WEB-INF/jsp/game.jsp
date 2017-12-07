@@ -25,18 +25,18 @@
 			<img class="score" src="resources/images/leftScore.jpg" />
 		</div>
 		<div class="board">
-			<a href="?move=1"><img src="resources/images/topBoard.jpg" /></a>
-			<a href="?move=2"><img src="resources/images/topBoard.jpg" /></a>
-			<a href="?move=3"><img src="resources/images/topBoard.jpg" /></a>
-			<a href="?move=4"><img src="resources/images/topBoard.jpg" /></a>
-			<a href="?move=5"><img src="resources/images/topBoard.jpg" /></a>
-			<a href="?move=6"><img src="resources/images/topBoard.jpg" /></a>
-			<a href="?move=13"><img src="resources/images/bottomBoard.jpg" /></a>
-			<a href="?move=12"><img src="resources/images/bottomBoard.jpg" /></a>
-			<a href="?move=11"><img src="resources/images/bottomBoard.jpg" /></a>
-			<a href="?move=10"><img src="resources/images/bottomBoard.jpg" /></a>
-			<a href="?move=9"><img src="resources/images/bottomBoard.jpg" /></a>
-			<a href="?move=8"><img src="resources/images/bottomBoard.jpg" /></a>
+			<a href="/input/1"><img src="resources/images/topBoard.jpg" /></a>
+			<a href="/input/2"><img src="resources/images/topBoard.jpg" /></a>
+			<a href="/input/3"><img src="resources/images/topBoard.jpg" /></a>
+			<a href="/input/4"><img src="resources/images/topBoard.jpg" /></a>
+			<a href="/input/5"><img src="resources/images/topBoard.jpg" /></a>
+			<a href="/input/6"><img src="resources/images/topBoard.jpg" /></a>
+			<a href="/input/13"><img src="resources/images/bottomBoard.jpg" /></a>
+			<a href="/input/12"><img src="resources/images/bottomBoard.jpg" /></a>
+			<a href="/input/11"><img src="resources/images/bottomBoard.jpg" /></a>
+			<a href="/input/10"><img src="resources/images/bottomBoard.jpg" /></a>
+			<a href="/input/9"><img src="resources/images/bottomBoard.jpg" /></a>
+			<a href="/input/8"><img src="resources/images/bottomBoard.jpg" /></a>
 		</div>
 		<div>
 			<div class="pit middle">${pitStones[7]}</div>
@@ -49,7 +49,7 @@
 			<c:out value="${val}" />
 		</div>
 	</c:forEach>
-	<c:forEach var="val" items="${pitStones}" begin="8" end = "13" varStatus="iterator">
+	<c:forEach var="val" items="${pitStones}" begin="1" end = "6" varStatus="iterator">
 		<div id="p${iterator.count}" class="pit bottom" varStatus="iterator">
 			<c:out value="${val}" />
 		</div>

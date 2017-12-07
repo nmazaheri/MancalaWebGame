@@ -17,6 +17,7 @@ public class GameData {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GameData.class);
     private final static int INITIAL_STONE_COUNT = 6;
+    private final static int TOP_OF_BOARD = 13;
 
     /**
      * Defines the amount of stones in the pits
@@ -37,11 +38,11 @@ public class GameData {
         return currentPlayer;
     }
 
-    public void setNextPlayer() {
+    public Player getNextPlayer() {
         if (currentPlayer.equals(PLAYER_ONE)) {
-            currentPlayer = PLAYER_TWO;
+            return PLAYER_TWO;
         } else {
-            currentPlayer = PLAYER_ONE;
+            return PLAYER_ONE;
         }
     }
 
@@ -79,63 +80,82 @@ public class GameData {
         return true;
     }
 
-    public boolean handleMove(int move) {
-        final boolean validMove = currentPlayer.isValidMove(move);
-        if (!validMove || pitStones[move] < 1) {
-            LOGGER.warn("invalid move={} for {}", move, currentPlayer);
-            return false;
+    public void handleMove(int pos) {
+        final boolean validMove = currentPlayer.isValidMove(pos);
+        if (!validMove || pitStones[pos] < 1) {
+            LOGGER.warn("{} cannot use pos {}", currentPlayer, pos);
+            return;
         }
 
-        // do game logic
-        return true;
+        final boolean turnEnded = moveStones(pos);
+        if (turnEnded) {
+            currentPlayer = getNextPlayer();
+        }
+        return;
     }
 
     /**
      * Perform a player's turn by moving the stones between pits
+     *
      * @param pit the pit selected by the user
      * @return whether the user's turn is ended
      */
-    protected boolean moveStones(final int pit) {
-        int pointer = pit;
-
-        // return if pit has no stones
-        if ( pitStones[pit] < 1 ) {
-            return true;
-        }
+    protected boolean moveStones(int pit) {
 
         // take stones out of pit
         int stones = pitStones[pit];
         pitStones[pit] = 0;
 
-        while ( stones > 0 ) {
-            ++pointer;
+        while (stones > 0) {
+            pit--;
 
-            // skip other player's storage pit and reset pointer
-            if (pointer == 13) {
-                pointer = 0;
-            } else {
-                pitStones[pointer]++;
-                stones--;
+            if (pit == getNextPlayer().getHome()) {
+                continue;
+            }
+            if (pit < 0) {
+                pit = TOP_OF_BOARD;
             }
 
+            // distribute
+            pitStones[pit]++;
+            stones--;
         }
 
-        // set to point to the opposite pit
-        int inversePointer = -pointer + 12;
-
-        // Check for capture
-        if (pointer < 6 && pitStones[pointer] == 1 && pitStones[inversePointer] > 0) {
-
-            // Transfer this stone along with opposite pit's stones to store
-            pitStones[6] += pitStones[inversePointer] + 1;
-
-            // Clear the pits
-            pitStones[pointer] = 0;
-            pitStones[inversePointer] = 0;
+        // if you land in your own pit you get to go again
+        if (pit == getCurrentPlayer().getHome()) {
+            return false;
         }
 
-        // return true if the turn ended in storage pit
-        return pointer == 6;
+        // if you land in an empty board pit then you capture enemies stones
+        if (pitStones[pit] == 1 && getCurrentPlayer().isValidMove(pit)) {
+            incrementCurrentPlayerScore();
+            pitStones[pit] = 0;
+
+            int diff = pit - getCurrentPlayer().getHome();
+            int oppositePit = getOppositePit(diff);
+
+            // take enemy stones
+            incrementCurrentPlayerScore(pitStones[oppositePit]);
+            pitStones[oppositePit] = 0;
+
+        }
+        return true;
+    }
+
+    private int getOppositePit(int diff) {
+        int potentialPit = getCurrentPlayer().getHome() - diff;
+        if (potentialPit < 0) {
+            return TOP_OF_BOARD + 1 - diff;
+        }
+        return potentialPit;
+    }
+
+    private void incrementCurrentPlayerScore() {
+        incrementCurrentPlayerScore(1);
+    }
+
+    private void incrementCurrentPlayerScore(int val) {
+        pitStones[getCurrentPlayer().getHome()] += val;
     }
 
     @Override
