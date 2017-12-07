@@ -3,7 +3,13 @@ body {
     margin: 50px;
 }
 
+h1 {
+    margin-left: 85px;
+    color: darkred;
+}
+
 .grid {
+    position: relative;
     text-align: center;
     display: grid;
     grid-template-columns: 58px 264px 65px;
@@ -16,4 +22,52 @@ body {
 
 .score {
     height: 132px;
+}
+
+.pit {
+    user-select: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    pointer-events: none;
+    font-size: 26px;
+    position: absolute;
+}
+
+.pit.top {
+    left: 122px;
+    top: 120px;
+}
+
+.pit.middle {
+    font-size: 30px;
+    top: 50px;
+    margin-left: 22px;
+}
+
+.pit.bottom {
+    left: 122px;
+    top: 200px;
+}
+
+#p2 {
+    margin-left: 45px;
+}
+
+#p3 {
+    margin-left: 90px;
+}
+
+#p4 {
+    margin-left: 135px;
+}
+
+#p5 {
+    margin-left: 180px;
+}
+
+#p6 {
+    margin-left: 222px;
 }

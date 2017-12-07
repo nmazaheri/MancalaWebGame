@@ -1,4 +1,4 @@
-package sample.jsp;
+package sample.jsp.model;
 
 import com.google.common.collect.Sets;
 

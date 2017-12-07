@@ -1,10 +1,14 @@
-package sample.jsp;
+package sample.jsp.game;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import sample.jsp.model.GameResult;
+import sample.jsp.model.Player;
 
-import static sample.jsp.Player.PLAYER_ONE;
-import static sample.jsp.Player.PLAYER_TWO;
+import java.util.Arrays;
+
+import static sample.jsp.model.Player.PLAYER_ONE;
+import static sample.jsp.model.Player.PLAYER_TWO;
 
 /**
  *
@@ -18,7 +22,6 @@ public class GameData {
      * Defines the amount of stones in the pits
      */
     private int[] pitStones;
-
     private Player currentPlayer;
 
     public GameData() {
@@ -133,5 +136,13 @@ public class GameData {
 
         // return true if the turn ended in storage pit
         return pointer == 6;
+    }
+
+    @Override
+    public String toString() {
+        return "GameData{" +
+                "pitStones=" + Arrays.toString(pitStones) +
+                ", currentPlayer=" + currentPlayer +
+                '}';
     }
 }
