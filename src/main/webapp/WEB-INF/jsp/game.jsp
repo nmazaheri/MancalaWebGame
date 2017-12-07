@@ -44,20 +44,25 @@
 		</div>
 	</div>
 
-	<c:forEach var="val" items="${pitStones}" begin="1" end = "6" varStatus="iterator">
+	<c:forEach begin="1" end = "6" varStatus="iterator">
 		<div id="p${iterator.count}" class="pit top" varStatus="iterator">
-			<c:out value="${val}" />
+			${pitStones[iterator.count]}
 		</div>
 	</c:forEach>
-	<c:forEach var="val" items="${pitStones}" begin="1" end = "6" varStatus="iterator">
+	<c:forEach begin="1" end = "6" varStatus="iterator">
 		<div id="p${iterator.count}" class="pit bottom" varStatus="iterator">
-			<c:out value="${val}" />
+			${pitStones[14 - iterator.count]}
 		</div>
 	</c:forEach>
 
 	<br>
-	<p>Current Player is ${currentPlayer}</p>
+	<c:if test="${currentPlayer != null}">
+		<p>Current Player is ${currentPlayer}</p>
+	</c:if>
+	<c:if test="${gameWinner != null}">
+		<h2 class="win">${gameWinner}</h2>
+	</c:if>
+
 
 </body>
-
 </html>

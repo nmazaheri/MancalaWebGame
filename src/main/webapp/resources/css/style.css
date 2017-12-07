@@ -16,6 +16,10 @@ h1 {
     font-size: 0;
 }
 
+.win {
+    color: red;
+}
+
 .board {
     width: 264px;
 }
