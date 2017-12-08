@@ -1,4 +1,4 @@
-package sample.jsp.game;
+package sample.mancala.game;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,71 +7,73 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import sample.jsp.model.GameData;
-import sample.jsp.model.GameStatus;
+import sample.mancala.model.GameState;
+import sample.mancala.model.GameStatus;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Map;
 
+/**
+ * Servlet used to handle user input and rendering game
+ */
 @Controller
 public class GameController {
 
+    static final String GAME_DATA_SESSION_KEY = "gameData";
+    static final String PIT_STONE_MODEL = "pitStones";
+    static final String CURRENT_PLAYER_MODEL = "currentPlayer";
+    static final String GAME_WINNER_MODEL = "gameWinner";
     private static final Logger LOGGER = LoggerFactory.getLogger(GameController.class);
-    public static final String GAME_DATA_SESSION_KEY = "gameData";
-    public static final String PIT_STONE_MODEL = "pitStones";
-    public static final String CURRENT_PLAYER_MODEL = "currentPlayer";
-    public static final String GAME_WINNER_MODEL = "gameWinner";
 
     @Autowired
     GameLogic gameLogic;
 
     @GetMapping("/")
-    public String gameScreen(HttpServletRequest request, Map<String, Object> model) {
+    public String renderGame(HttpServletRequest request, Map<String, Object> model) {
         final HttpSession session = request.getSession(true);
-        final GameData gameData = getGameData(session);
-        final GameStatus gameStatus = gameData.getGameStatus();
+        final GameState gameState = getGameData(session);
+        final GameStatus gameStatus = gameState.getGameStatus();
 
-        model.put(PIT_STONE_MODEL, gameData.getPitStones());
+        model.put(PIT_STONE_MODEL, gameState.getPitStones());
         if (gameStatus != GameStatus.PLAYING) {
             LOGGER.info("{} wins", gameStatus);
             model.put(GAME_WINNER_MODEL, gameStatus.getMessage());
             session.invalidate();
         } else {
-            model.put(CURRENT_PLAYER_MODEL, gameData.getCurrentPlayer());
+            model.put(CURRENT_PLAYER_MODEL, gameState.getCurrentPlayer());
         }
-
         return "game";
     }
 
     @GetMapping("/input/{move}")
-    public String move(HttpServletRequest request, Map<String, Object> model, @PathVariable String move) {
+    public String handleUserInput(HttpServletRequest request, @PathVariable String move) {
         final HttpSession session = request.getSession(true);
         handleMove(session, move);
         return "redirect:/";
     }
 
-    private GameData getGameData(HttpSession session) {
+    private GameState getGameData(HttpSession session) {
         final Object attribute = session.getAttribute(GAME_DATA_SESSION_KEY);
 
         if (attribute == null) {
             LOGGER.info("Starting new game");
-            return new GameData();
+            return new GameState();
         }
-        return (GameData) attribute;
+        return (GameState) attribute;
     }
 
     private void handleMove(HttpSession session, String move) {
-        GameData gameData = getGameData(session);
+        GameState gameState = getGameData(session);
         if (StringUtils.isEmpty(move)) {
             return;
         }
 
         int pos = Integer.valueOf(move);
-        gameData = gameLogic.handleMove(pos, gameData);
-        final GameStatus gameStatus = gameLogic.checkForWin(gameData);
-        gameData.setGameStatus(gameStatus);
-        session.setAttribute(GAME_DATA_SESSION_KEY, gameData);
+        gameState = gameLogic.handleMove(pos, gameState);
+        final GameStatus gameStatus = gameLogic.checkForWin(gameState);
+        gameState.setGameStatus(gameStatus);
+        session.setAttribute(GAME_DATA_SESSION_KEY, gameState);
     }
 
 }

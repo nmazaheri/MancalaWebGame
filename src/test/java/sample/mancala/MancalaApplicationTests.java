@@ -1,5 +1,5 @@
 
-package sample.jsp;
+package sample.mancala;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,19 +15,25 @@ import org.springframework.test.context.junit4.SpringRunner;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Basic integration tests for JSP application.
+ * Basic integration tests for Mancala Game application.
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @DirtiesContext
-public class SampleWebJspApplicationTests {
+public class MancalaApplicationTests {
 
     @Autowired
     private TestRestTemplate restTemplate;
 
     @Test
-    public void testJsp() throws Exception {
+    public void testRenderGame() throws Exception {
         ResponseEntity<String> entity = this.restTemplate.getForEntity("/", String.class);
+        assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+    }
+
+    @Test
+    public void testHandleUserInput() throws Exception {
+        ResponseEntity<String> entity = this.restTemplate.getForEntity("/input/5", String.class);
         assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
 

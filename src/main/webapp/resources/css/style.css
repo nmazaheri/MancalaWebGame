@@ -1,4 +1,4 @@
-
+/* Contains styling for game board */
 body {
     margin: 50px;
 }
@@ -48,7 +48,7 @@ h1 {
 .pit.middle {
     font-size: 30px;
     top: 50px;
-    margin-left: 22px;
+    margin-left: 20px;
 }
 
 .pit.bottom {

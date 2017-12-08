@@ -1,10 +1,11 @@
-package sample.jsp;
+package sample.mancala;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import sample.jsp.game.GameLogic;
+import sample.mancala.game.GameController;
+import sample.mancala.game.GameLogic;
 
 /**
  *
@@ -22,4 +23,5 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     public GameLogic gameLogic() {
         return new GameLogic();
     }
+
 }

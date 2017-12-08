@@ -1,11 +1,11 @@
-package sample.jsp.model;
+package sample.mancala.model;
 
 import com.google.common.collect.Sets;
 
 import java.util.Set;
 
 /**
- *
+ * Contains data unique for each players
  */
 public enum Player {
     PLAYER_ONE(Sets.newHashSet(1, 2, 3, 4, 5, 6), 0),
@@ -19,8 +19,8 @@ public enum Player {
         this.home = home;
     }
 
-    public boolean isValidMove(int move) {
-        return validMoves.contains(move);
+    public boolean isYourPit(int pit) {
+        return validMoves.contains(pit);
     }
 
     public int getHome() {

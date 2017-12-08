@@ -1,14 +1,14 @@
-package sample.jsp.model;
+package sample.mancala.model;
 
 import java.util.Arrays;
 
-import static sample.jsp.model.Player.PLAYER_ONE;
-import static sample.jsp.model.Player.PLAYER_TWO;
+import static sample.mancala.model.Player.PLAYER_ONE;
+import static sample.mancala.model.Player.PLAYER_TWO;
 
 /**
- *
+ * Contains data needed to determine game state
  */
-public class GameData {
+public class GameState {
 
     private final static int INITIAL_STONE_COUNT = 6;
 
@@ -19,7 +19,13 @@ public class GameData {
     private Player currentPlayer;
     private GameStatus gameStatus;
 
-    public GameData() {
+    public GameState(int[] pitStones) {
+        this.pitStones = pitStones;
+        currentPlayer = PLAYER_ONE;
+        gameStatus = GameStatus.PLAYING;
+    }
+
+    public GameState() {
         this.pitStones = new int[]{0, INITIAL_STONE_COUNT, INITIAL_STONE_COUNT, INITIAL_STONE_COUNT, INITIAL_STONE_COUNT, INITIAL_STONE_COUNT, INITIAL_STONE_COUNT, 0, INITIAL_STONE_COUNT, INITIAL_STONE_COUNT, INITIAL_STONE_COUNT, INITIAL_STONE_COUNT, INITIAL_STONE_COUNT, INITIAL_STONE_COUNT};
         currentPlayer = PLAYER_ONE;
         gameStatus = GameStatus.PLAYING;
@@ -63,7 +69,7 @@ public class GameData {
 
     @Override
     public String toString() {
-        return "GameData{" +
+        return "GameState{" +
                 "pitStones=" + Arrays.toString(pitStones) +
                 ", currentPlayer=" + currentPlayer +
                 '}';

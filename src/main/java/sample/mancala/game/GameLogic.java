@@ -1,10 +1,10 @@
-package sample.jsp.game;
+package sample.mancala.game;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sample.jsp.model.GameData;
-import sample.jsp.model.GameStatus;
-import sample.jsp.model.Player;
+import sample.mancala.model.GameState;
+import sample.mancala.model.GameStatus;
+import sample.mancala.model.Player;
 
 /**
  * Responsible for Mancala game logic
@@ -17,8 +17,8 @@ public class GameLogic {
     /**
      * Check if a player has won the game
      */
-    public GameStatus checkForWin(GameData gameData) {
-        final int[] pitStones = gameData.getPitStones();
+    public GameStatus checkForWin(GameState gameState) {
+        final int[] pitStones = gameState.getPitStones();
         if (endGameCondition(pitStones)) {
             int playerOneScore = pitStones[0];
             int playerTwoScore = pitStones[7];
@@ -49,27 +49,28 @@ public class GameLogic {
         return true;
     }
 
-    public GameData handleMove(int pos, GameData gameData) {
-        final Player currentPlayer = gameData.getCurrentPlayer();
-        final int[] pitStones = gameData.getPitStones();
+    public GameState handleMove(int pos, GameState gameState) {
+        final Player currentPlayer = gameState.getCurrentPlayer();
+        final int[] pitStones = gameState.getPitStones();
 
-        if (!currentPlayer.isValidMove(pos) || pitStones[pos] < 1) {
+        if (!currentPlayer.isYourPit(pos) || pitStones[pos] < 1) {
             LOGGER.warn("{} cannot move pos {}", currentPlayer, pos);
-            return gameData;
+            return gameState;
         }
-        return moveStones(pos, gameData);
+        return moveStones(pos, gameState);
     }
 
     /**
      * Perform a player's turn by moving the stones between pits
      *
      * @param pit the pit selected by the user
+     * @param gameState contains gameboard and current player
      * @return whether the user's turn is ended
      */
-    protected GameData moveStones(int pit, GameData gameData) {
-        final int[] pitStones = gameData.getPitStones();
-        final Player currentPlayer = gameData.getCurrentPlayer();
-        final Player nextPlayer = gameData.getNextPlayer();
+    protected GameState moveStones(int pit, GameState gameState) {
+        final int[] pitStones = gameState.getPitStones();
+        final Player currentPlayer = gameState.getCurrentPlayer();
+        final Player nextPlayer = gameState.getNextPlayer();
 
         // take stones out of pit
         int stones = pitStones[pit];
@@ -92,24 +93,22 @@ public class GameLogic {
 
         // if you land in your own pit you get to go again
         if (pit == currentPlayer.getHome()) {
-            return gameData;
+            return gameState;
         }
 
-        // if you land in an empty board pit then you capture enemies stones
-        if (pitStones[pit] == 1 && currentPlayer.isValidMove(pit)) {
-            gameData.incrementCurrentPlayerScore();
+        // if you land in one of your empty board pits then you capture enemies stones and your own
+        if (pitStones[pit] == 1 && currentPlayer.isYourPit(pit)) {
+            gameState.incrementCurrentPlayerScore();
             pitStones[pit] = 0;
 
-            int diff = pit - currentPlayer.getHome();
-            int oppositePit = getOppositePit(diff, currentPlayer);
+            int oppositePit = getOppositePit(pit - currentPlayer.getHome(), currentPlayer);
 
             // take enemy stones
-            gameData.incrementCurrentPlayerScore(pitStones[oppositePit]);
+            gameState.incrementCurrentPlayerScore(pitStones[oppositePit]);
             pitStones[oppositePit] = 0;
-
         }
-        gameData.setNextPlayer();
-        return gameData;
+        gameState.setNextPlayer();
+        return gameState;
     }
 
     private int getOppositePit(int diff, Player currentPlayer) {
