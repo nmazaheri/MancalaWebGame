@@ -9,7 +9,7 @@
 
 	<artifactId>spring-boot-mancala-web-jsp</artifactId>
 	<packaging>war</packaging>
-	<name>Spring Boot Web JSP Sample</name>
+	<name>Spring Boot Mancala Web JSP</name>
 
 	<properties>
 		<main.basedir>${basedir}/../..</main.basedir>
