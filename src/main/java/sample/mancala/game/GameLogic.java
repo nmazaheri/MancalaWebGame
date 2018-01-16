@@ -63,7 +63,7 @@ public class GameLogic {
     /**
      * Perform a player's turn by moving the stones between pits
      *
-     * @param pit the pit selected by the user
+     * @param pit       the pit selected by the user
      * @param gameState contains gameboard and current player
      * @return whether the user's turn is ended
      */

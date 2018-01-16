@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <html lang="en">
 
@@ -88,13 +89,14 @@
 
 <br>
 
-<c:if test="${gameWinner ne null}">
-    <h2 class="win">${gameWinner}</h2>
-</c:if>
-
-<c:if test="${currentPlayer ne null}">
-    <p>Current Player is ${currentPlayer}</p>
-</c:if>
+<c:choose>
+    <c:when test="${gameWinner != null}">
+        <h2 class="win">${gameWinner}</h2>
+    </c:when>
+    <c:otherwise>
+        <p>Current Player is ${currentPlayer}</p>
+    </c:otherwise>
+</c:choose>
 
 </body>
 </html>

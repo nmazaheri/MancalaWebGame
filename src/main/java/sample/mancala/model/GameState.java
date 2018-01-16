@@ -1,7 +1,5 @@
 package sample.mancala.model;
 
-import java.util.Arrays;
-
 import static sample.mancala.model.Player.PLAYER_ONE;
 import static sample.mancala.model.Player.PLAYER_TWO;
 
@@ -65,13 +63,5 @@ public class GameState {
 
     public void setGameStatus(GameStatus gameStatus) {
         this.gameStatus = gameStatus;
-    }
-
-    @Override
-    public String toString() {
-        return "GameState{" +
-                "pitStones=" + Arrays.toString(pitStones) +
-                ", currentPlayer=" + currentPlayer +
-                '}';
     }
 }
