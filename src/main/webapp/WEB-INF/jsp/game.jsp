@@ -2,61 +2,99 @@
 
 <!DOCTYPE html>
 
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <html lang="en">
 
-<spring:url value="/resources/css/style.css" var="mainCss" />
-<link href="${mainCss}" rel="stylesheet" />
+<spring:url value="/resources/css/style.css" var="mainCss"/>
+<link href="${mainCss}" rel="stylesheet"/>
 
 <body>
-	<h1>Mancala Game</h1>
+<h1>Mancala Game</h1>
 
-	<div class="grid">
-		<div>
-			<div class="pit middle">${pitStones[0]}</div>
-			<img class="score" src="resources/images/leftScore.jpg" />
-		</div>
-		<div class="board">
-			<a href="/input/1"><img src="resources/images/topBoard.jpg" /></a>
-			<a href="/input/2"><img src="resources/images/topBoard.jpg" /></a>
-			<a href="/input/3"><img src="resources/images/topBoard.jpg" /></a>
-			<a href="/input/4"><img src="resources/images/topBoard.jpg" /></a>
-			<a href="/input/5"><img src="resources/images/topBoard.jpg" /></a>
-			<a href="/input/6"><img src="resources/images/topBoard.jpg" /></a>
-			<a href="/input/13"><img src="resources/images/bottomBoard.jpg" /></a>
-			<a href="/input/12"><img src="resources/images/bottomBoard.jpg" /></a>
-			<a href="/input/11"><img src="resources/images/bottomBoard.jpg" /></a>
-			<a href="/input/10"><img src="resources/images/bottomBoard.jpg" /></a>
-			<a href="/input/9"><img src="resources/images/bottomBoard.jpg" /></a>
-			<a href="/input/8"><img src="resources/images/bottomBoard.jpg" /></a>
-		</div>
-		<div>
-			<div class="pit middle">${pitStones[7]}</div>
-			<img class="score" src="resources/images/rightScore.jpg" />
-		</div>
-	</div>
+<table>
+    <tr>
+        <%-- player one score --%>
+        <td>
+            <div class="pit middle">${pitStones[0]}</div>
+            <img src="resources/images/leftScore.jpg"/>
+        </td>
 
-	<c:forEach begin="1" end = "6" varStatus="iterator">
-		<div id="p${iterator.count}" class="pit top" varStatus="iterator">
-			${pitStones[iterator.count]}
-		</div>
-	</c:forEach>
-	<c:forEach begin="1" end = "6" varStatus="iterator">
-		<div id="p${iterator.count}" class="pit bottom" varStatus="iterator">
-			${pitStones[14 - iterator.count]}
-		</div>
-	</c:forEach>
+        <%-- main board --%>
+        <td>
+            <table >
+                <tr>
+                    <td>
+                        <a href="/input/1"><img src="resources/images/topBoard.jpg"/></a>
+                        <div class="pit top">${pitStones[1]}</div>
+                    </td>
+                    <td>
+                        <a href="/input/2"><img src="resources/images/topBoard.jpg"/></a>
+                        <div class="pit top">${pitStones[2]}</div>
+                    </td>
+                    <td>
+                        <a href="/input/3"><img src="resources/images/topBoard.jpg"/></a>
+                        <div class="pit top">${pitStones[3]}</div>
+                    </td>
+                    <td>
+                        <a href="/input/4"><img src="resources/images/topBoard.jpg"/></a>
+                        <div class="pit top">${pitStones[4]}</div>
+                    </td>
+                    <td>
+                        <a href="/input/5"><img src="resources/images/topBoard.jpg"/></a>
+                        <div class="pit top">${pitStones[5]}</div>
+                    </td>
+                    <td>
+                        <a href="/input/6"><img src="resources/images/topBoard.jpg"/></a>
+                        <div class="pit top">${pitStones[6]}</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="/input/13"><img src="resources/images/bottomBoard.jpg"/></a>
+                        <div class="pit bottom">${pitStones[13]}</div>
+                    </td>
+                    <td>
+                        <a href="/input/12"><img src="resources/images/bottomBoard.jpg"/></a>
+                        <div class="pit bottom">${pitStones[12]}</div>
+                    </td>
+                    <td>
+                        <a href="/input/11"><img src="resources/images/bottomBoard.jpg"/></a>
+                        <div class="pit bottom">${pitStones[11]}</div>
+                    </td>
+                    <td>
+                        <a href="/input/10"><img src="resources/images/bottomBoard.jpg"/></a>
+                        <div class="pit bottom">${pitStones[10]}</div>
+                    </td>
+                    <td>
+                        <a href="/input/9"><img src="resources/images/bottomBoard.jpg"/></a>
+                        <div class="pit bottom">${pitStones[9]}</div>
+                    </td>
+                    <td>
+                        <a href="/input/8"><img src="resources/images/bottomBoard.jpg"/></a>
+                        <div class="pit bottom">${pitStones[8]}</div>
+                    </td>
+                </tr>
+            </table>
+        </td>
 
-	<br>
-	<c:if test="${currentPlayer != null}">
-		<p>Current Player is ${currentPlayer}</p>
-	</c:if>
-	<c:if test="${gameWinner != null}">
-		<h2 class="win">${gameWinner}</h2>
-	</c:if>
+        <%-- player two score --%>
+        <td>
+            <div class="pit middle">${pitStones[7]}</div>
+            <img src="resources/images/rightScore.jpg"/>
+        </td>
+    </tr>
+</table>
 
+<br>
+
+<c:if test="${gameWinner ne null}">
+    <h2 class="win">${gameWinner}</h2>
+</c:if>
+
+<c:if test="${currentPlayer ne null}">
+    <p>Current Player is ${currentPlayer}</p>
+</c:if>
 
 </body>
 </html>
