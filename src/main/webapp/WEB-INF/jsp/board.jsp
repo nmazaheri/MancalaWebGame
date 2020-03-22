@@ -94,7 +94,7 @@
         <h2 class="win">${gameWinner}</h2>
     </c:when>
     <c:otherwise>
-        <p>Current Player is ${currentPlayer}</p>
+        <p>Current Player: ${currentPlayer}</p>
     </c:otherwise>
 </c:choose>
 

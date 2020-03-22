@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @DirtiesContext
-public class MancalaGameTests {
+public class MancalaGameTest {
 
     @Autowired
     private TestRestTemplate restTemplate;
@@ -36,5 +36,4 @@ public class MancalaGameTests {
         ResponseEntity<String> entity = this.restTemplate.getForEntity("/input/5", String.class);
         assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
-
 }

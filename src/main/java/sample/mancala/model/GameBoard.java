@@ -1,4 +1,7 @@
-package sample.mancala.game;
+package sample.mancala.model;
+
+import static sample.mancala.model.Player.ONE;
+import static sample.mancala.model.Player.TWO;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +20,9 @@ public class GameBoard {
 				INITIAL_STONE_COUNT, INITIAL_STONE_COUNT, INITIAL_STONE_COUNT, 0, INITIAL_STONE_COUNT,
 				INITIAL_STONE_COUNT, INITIAL_STONE_COUNT, INITIAL_STONE_COUNT, INITIAL_STONE_COUNT,
 				INITIAL_STONE_COUNT};
+		int[] testBoard = {4, 0, 1, 0, 0, 0, 0, 4, 1, 1, 0, 1, 0, 1};
+		this.pitStones = testBoard;
+
 	}
 
 	public void setPitStones(int[] pitStones) {
@@ -50,11 +56,11 @@ public class GameBoard {
 		return pitStones[player.getScorePitLocation()];
 	}
 
-	int[] getPitStones() {
+	public int[] getPitStones() {
 		return pitStones;
 	}
 
-	void increment(int pos, int val) {
+	public void increment(int pos, int val) {
 		if (pos >= pitStones.length || pos < 0) {
 			LOGGER.warn("invalid position = {}", pos);
 			return;
@@ -62,5 +68,18 @@ public class GameBoard {
 		pitStones[pos] += val;
 	}
 
+	public String getGameResult() {
+		return handleGameEnd(getPlayerScore(ONE), getPlayerScore(TWO));
+	}
+
+	public static String handleGameEnd(int playerOneScore, int playerTwoScore) {
+		if (playerOneScore == playerTwoScore) {
+			return Constants.playerTieMessage;
+		}
+		if (playerOneScore > playerTwoScore) {
+			return Constants.playerOneWinMessage;
+		}
+		return Constants.playerTwoWinMessage;
+	}
 
 }
