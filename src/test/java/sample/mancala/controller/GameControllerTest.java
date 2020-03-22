@@ -2,13 +2,11 @@ package sample.mancala.controller;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,6 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import sample.mancala.GameState;
+import sample.mancala.model.Constants;
 import sample.mancala.model.Player;
 
 @RunWith(SpringRunner.class)
@@ -49,33 +48,28 @@ public class GameControllerTest {
 	@Test
 	public void testRenderGame() throws Exception {
 		mvc.perform(get("/"))
-				.andExpect(view().name(GameController.BOARD_VIEW))
+				.andExpect(view().name(Constants.BOARD_VIEW))
 				.andExpect(status().is2xxSuccessful())
 				.andExpect(model().size(2))
 				.andExpect(model()
-						.attributeExists(GameController.CURRENT_PLAYER_MODEL, GameController.PIT_STONE_MODEL))
-				.andExpect(model().attribute(GameController.CURRENT_PLAYER_MODEL, Player.ONE))
+						.attributeExists(Constants.CURRENT_PLAYER_MODEL, Constants.PIT_STONE_MODEL))
+				.andExpect(model().attribute(Constants.CURRENT_PLAYER_MODEL, Player.ONE))
 				.andExpect(
-						model().attribute(GameController.PIT_STONE_MODEL, new GameState().getPitStones()));
+						model().attribute(Constants.PIT_STONE_MODEL, new GameState().getPitStones()));
 	}
 
 	@Test
 	public void testEndGame() throws Exception {
-//		if (GameStatus.PLAYING == gameStatus) {
-//			mvc.perform(get("/")
-//					.sessionAttr(GameController.GAME_DATA_SESSION_KEY, gameState))
-//					.andExpect(view().name(GameController.BOARD_VIEW))
-//					.andExpect(status().is2xxSuccessful())
-//					.andExpect(model().size(2));
-//		} else {
-//			mvc.perform(get("/")
-//					.sessionAttr(GameController.GAME_DATA_SESSION_KEY, gameState))
-//					.andExpect(view().name(GameController.BOARD_VIEW))
-//					.andExpect(status().is2xxSuccessful())
-//					.andExpect(model().size(2))
-//					.andExpect(
-//							model().attribute(GameController.GAME_WINNER_MODEL, gameStatus.getMessage()));
-//		}
+		int[] actual = {4, 0, 0, 1, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0};
+		int[] expected = {5, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0};
+		gameState.getGameBoard().setPitStones(actual);
+		mvc.perform(get("/")
+				.sessionAttr(Constants.GAME_DATA_SESSION_KEY, gameState))
+				.andExpect(view().name(Constants.BOARD_VIEW))
+				.andExpect(status().is2xxSuccessful())
+				.andExpect(model().size(3))
+				.andExpect(model().attribute(Constants.GAME_WINNER_MODEL, Constants.playerOneWinMessage))
+				.andExpect(model().attribute(Constants.PIT_STONE_MODEL, expected));
 	}
 
 
@@ -83,7 +77,7 @@ public class GameControllerTest {
 	public void testNormalMove() throws Exception {
 		assertEquals(Player.ONE, gameState.getCurrentPlayer());
 		mvc.perform(get("/input/5")
-				.sessionAttr(GameController.GAME_DATA_SESSION_KEY, gameState))
+				.sessionAttr(Constants.GAME_DATA_SESSION_KEY, gameState))
 				.andExpect(status().is3xxRedirection())
 				.andExpect(view().name("redirect:/"));
 
@@ -99,7 +93,7 @@ public class GameControllerTest {
 	public void testLandInOwnScorePit() throws Exception {
 		assertEquals(Player.ONE, gameState.getCurrentPlayer());
 		mvc.perform(get("/input/2")
-				.sessionAttr(GameController.GAME_DATA_SESSION_KEY, gameState))
+				.sessionAttr(Constants.GAME_DATA_SESSION_KEY, gameState))
 				.andExpect(status().is3xxRedirection())
 				.andExpect(view().name("redirect:/"));
 
@@ -115,7 +109,7 @@ public class GameControllerTest {
 	public void testLandInOwnEmptyPit() throws Exception {
 		assertEquals(Player.ONE, gameState.getCurrentPlayer());
 		mvc.perform(get("/input/6")
-				.sessionAttr(GameController.GAME_DATA_SESSION_KEY, gameState))
+				.sessionAttr(Constants.GAME_DATA_SESSION_KEY, gameState))
 				.andExpect(status().is3xxRedirection())
 				.andExpect(view().name("redirect:/"));
 
@@ -133,7 +127,7 @@ public class GameControllerTest {
 	public void testInvalidMovesForPlayerOne() throws Exception {
 		for (int i = 7; i < 14; i++) {
 			mvc.perform(get("/input/" + i)
-					.sessionAttr(GameController.GAME_DATA_SESSION_KEY, gameState))
+					.sessionAttr(Constants.GAME_DATA_SESSION_KEY, gameState))
 					.andExpect(status().is3xxRedirection())
 					.andExpect(view().name("redirect:/"));
 
@@ -141,13 +135,13 @@ public class GameControllerTest {
 		}
 
 		mvc.perform(get("/input/0")
-				.sessionAttr(GameController.GAME_DATA_SESSION_KEY, gameState))
+				.sessionAttr(Constants.GAME_DATA_SESSION_KEY, gameState))
 				.andExpect(status().is3xxRedirection())
 				.andExpect(view().name("redirect:/"));
 		assertUnchangedSessionFor(Player.ONE);
 
 		mvc.perform(get("/input/4")
-				.sessionAttr(GameController.GAME_DATA_SESSION_KEY, gameState))
+				.sessionAttr(Constants.GAME_DATA_SESSION_KEY, gameState))
 				.andExpect(status().is3xxRedirection())
 				.andExpect(view().name("redirect:/"));
 		assertUnchangedSessionFor(Player.ONE);
@@ -163,7 +157,7 @@ public class GameControllerTest {
 		gameState.setNextPlayer();
 		for (int i = 0; i < 8; i++) {
 			mvc.perform(get("/input/" + i)
-					.sessionAttr(GameController.GAME_DATA_SESSION_KEY, gameState))
+					.sessionAttr(Constants.GAME_DATA_SESSION_KEY, gameState))
 					.andExpect(status().is3xxRedirection())
 					.andExpect(view().name("redirect:/"));
 
@@ -171,7 +165,7 @@ public class GameControllerTest {
 		}
 
 		mvc.perform(get("/input/12")
-				.sessionAttr(GameController.GAME_DATA_SESSION_KEY, gameState))
+				.sessionAttr(Constants.GAME_DATA_SESSION_KEY, gameState))
 				.andExpect(status().is3xxRedirection())
 				.andExpect(view().name("redirect:/"));
 		assertUnchangedSessionFor(Player.TWO);

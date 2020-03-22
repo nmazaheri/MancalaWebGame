@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import sample.mancala.GameState;
+import sample.mancala.model.Constants;
 
 /**
  * Servlet used to handle user input and render game
@@ -18,13 +19,6 @@ public class GameController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(GameController.class);
 
-	public static final String BOARD_VIEW = "board";
-
-	static final String GAME_DATA_SESSION_KEY = "gameData";
-	static final String PIT_STONE_MODEL = "pitStones";
-	static final String CURRENT_PLAYER_MODEL = "currentPlayer";
-	static final String GAME_WINNER_MODEL = "gameWinner";
-
 	@GetMapping("/")
 	public String renderGame(HttpServletRequest request, Map<String, Object> model) {
 		final HttpSession session = request.getSession(true);
@@ -33,13 +27,13 @@ public class GameController {
 		if (gameState.isGameOver()) {
 			String winResult = gameState.getGameBoard().getGameResult();
 			LOGGER.info("{} wins", winResult);
-			model.put(GAME_WINNER_MODEL, winResult);
+			model.put(Constants.GAME_WINNER_MODEL, winResult);
 			session.invalidate();
 		}
 
-		model.put(PIT_STONE_MODEL, gameState.getPitStones());
-		model.put(CURRENT_PLAYER_MODEL, gameState.getCurrentPlayer());
-		return BOARD_VIEW;
+		model.put(Constants.PIT_STONE_MODEL, gameState.getPitStones());
+		model.put(Constants.CURRENT_PLAYER_MODEL, gameState.getCurrentPlayer());
+		return Constants.BOARD_VIEW;
 	}
 
 	@GetMapping("/input/{move}")
@@ -47,12 +41,12 @@ public class GameController {
 		final HttpSession session = request.getSession(true);
 		GameState gameState = getGameData(session);
 		gameState.handleMove(Integer.parseInt(move));
-		session.setAttribute(GAME_DATA_SESSION_KEY, gameState);
+		session.setAttribute(Constants.GAME_DATA_SESSION_KEY, gameState);
 		return "redirect:/";
 	}
 
 	private GameState getGameData(HttpSession session) {
-		final Object attribute = session.getAttribute(GAME_DATA_SESSION_KEY);
+		final Object attribute = session.getAttribute(Constants.GAME_DATA_SESSION_KEY);
 		if (attribute == null) {
 			LOGGER.debug("Starting new game");
 			return new GameState();

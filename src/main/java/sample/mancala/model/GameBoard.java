@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Defines the amount of stones in the pits
+ * Defines the number of pits and the number of stones located in each pit
  */
 public class GameBoard {
 
@@ -20,9 +20,6 @@ public class GameBoard {
 				INITIAL_STONE_COUNT, INITIAL_STONE_COUNT, INITIAL_STONE_COUNT, 0, INITIAL_STONE_COUNT,
 				INITIAL_STONE_COUNT, INITIAL_STONE_COUNT, INITIAL_STONE_COUNT, INITIAL_STONE_COUNT,
 				INITIAL_STONE_COUNT};
-		int[] testBoard = {4, 0, 1, 0, 0, 0, 0, 4, 1, 1, 0, 1, 0, 1};
-		this.pitStones = testBoard;
-
 	}
 
 	public void setPitStones(int[] pitStones) {
