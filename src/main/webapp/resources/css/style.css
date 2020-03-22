@@ -1,52 +1,52 @@
 /* Contains styling for game board */
 body {
-    margin: 50px;
+  margin: 50px;
 }
 
 h1 {
-    margin-left: 85px;
-    color: darkred;
+  margin-left: 85px;
+  color: darkred;
 }
 
 table, tr, td {
-    padding: 0;
-    border: orange;
-    margin: 0;
-    line-height: 0;
+  padding: 0;
+  border: orange;
+  margin: 0;
+  line-height: 0;
 
-    border-spacing: 0;
-    border-collapse: collapse;
-    border-spacing: 0;
+  border-spacing: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 
 .win {
-    color: red;
+  color: red;
 }
 
 .pit {
-    user-select: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    -o-user-select: none;
-    pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  pointer-events: none;
 
-    font-size: 22px;
-    text-align: center;
-    position: relative;
+  font-size: 22px;
+  text-align: center;
+  position: relative;
 }
 
 .pit.top {
-    bottom: 39px;
+  bottom: 39px;
 }
 
 .pit.middle {
-    font-size: 30px;
-    font-weight: bold;
-    top: 68px;
+  font-size: 30px;
+  font-weight: bold;
+  top: 68px;
 }
 
 .pit.bottom {
-    bottom: 24px;
+  bottom: 24px;
 }

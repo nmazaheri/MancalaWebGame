@@ -22,18 +22,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(GameController.class)
 public class GameControllerTest {
 
-    private final int INITIAL_STONE_COUNT = 2;
+    private static final int INITIAL_STONE_COUNT = 2;
 
     @Autowired
     private MockMvc mvc;
 
     private GameState gameState;
-    private int[] testPit;
 
 
     @Before
-    public void setUp() throws Exception {
-        testPit = createTestPit();
+    public void setUp() {
+        int[] testPit = createTestPit();
         gameState = new GameState(testPit);
     }
 

@@ -26,13 +26,13 @@ public class MancalaGameTests {
     private TestRestTemplate restTemplate;
 
     @Test
-    public void testRenderGame() throws Exception {
+    public void testRenderGame() {
         ResponseEntity<String> entity = this.restTemplate.getForEntity("/", String.class);
         assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
 
     @Test
-    public void testHandleUserInput() throws Exception {
+    public void testHandleUserInput() {
         ResponseEntity<String> entity = this.restTemplate.getForEntity("/input/5", String.class);
         assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
     }

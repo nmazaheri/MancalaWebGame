@@ -23,7 +23,7 @@
 
         <%-- main board --%>
         <td>
-            <table >
+            <table>
                 <tr>
                     <td>
                         <a href="/input/1"><img src="resources/images/topBoard.jpg"/></a>
