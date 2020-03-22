@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @DirtiesContext
-public class MancalaApplicationTests {
+public class MancalaGameTests {
 
     @Autowired
     private TestRestTemplate restTemplate;

@@ -1,7 +1,6 @@
 package sample.mancala.model;
 
 import com.google.common.collect.Sets;
-
 import java.util.Set;
 
 /**
