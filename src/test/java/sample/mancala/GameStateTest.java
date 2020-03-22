@@ -24,8 +24,8 @@ public class GameStateTest {
 
 		gameState.isGameOver();
 		GameBoard gameBoard = gameState.getGameBoard();
-		assertEquals(4, gameBoard.getPlayerScore(Player.ONE));
-		assertEquals(8, gameBoard.getPlayerScore(Player.TWO));
+		assertEquals(4, gameBoard.getScore(Player.ONE));
+		assertEquals(8, gameBoard.getScore(Player.TWO));
 		assertEquals(Constants.playerTwoWinMessage, gameState.getGameResult());
 	}
 
@@ -37,8 +37,8 @@ public class GameStateTest {
 
 		gameState.isGameOver();
 		GameBoard gameBoard = gameState.getGameBoard();
-		assertEquals(7, gameBoard.getPlayerScore(Player.ONE));
-		assertEquals(4, gameBoard.getPlayerScore(Player.TWO));
+		assertEquals(7, gameBoard.getScore(Player.ONE));
+		assertEquals(4, gameBoard.getScore(Player.TWO));
 		assertEquals(Constants.playerOneWinMessage, gameState.getGameResult());
 	}
 
@@ -49,8 +49,8 @@ public class GameStateTest {
 
 		gameState.isGameOver();
 		GameBoard gameBoard = gameState.getGameBoard();
-		assertEquals(4, gameBoard.getPlayerScore(Player.ONE));
-		assertEquals(4, gameBoard.getPlayerScore(Player.TWO));
+		assertEquals(4, gameBoard.getScore(Player.ONE));
+		assertEquals(4, gameBoard.getScore(Player.TWO));
 		assertEquals(Constants.playerTieMessage, gameState.getGameResult());
 	}
 

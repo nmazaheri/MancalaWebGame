@@ -12,7 +12,7 @@ import sample.mancala.GameState;
 import sample.mancala.model.Constants;
 
 /**
- * Servlet used to handle user input and render game
+ * Servlet used to handle user input and render game board
  */
 @Controller
 public class GameController {
@@ -30,7 +30,6 @@ public class GameController {
 			model.put(Constants.GAME_WINNER_MODEL, winResult);
 			session.invalidate();
 		}
-
 		model.put(Constants.PIT_STONE_MODEL, gameState.getPitStones());
 		model.put(Constants.CURRENT_PLAYER_MODEL, gameState.getCurrentPlayer());
 		return Constants.BOARD_VIEW;

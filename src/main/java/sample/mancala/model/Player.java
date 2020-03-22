@@ -4,7 +4,7 @@ import com.google.common.collect.Sets;
 import java.util.Set;
 
 /**
- * Contains data unique for each players
+ * Contains data unique for each player
  */
 public enum Player {
 	ONE(Sets.newHashSet(1, 2, 3, 4, 5, 6), 0),
