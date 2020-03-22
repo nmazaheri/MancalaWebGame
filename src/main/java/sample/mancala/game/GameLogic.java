@@ -3,9 +3,6 @@ package sample.mancala.game;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import sample.mancala.model.GameState;
-import sample.mancala.model.GameStatus;
-import sample.mancala.model.Player;
 
 /**
  * Responsible for Mancala game logic
@@ -14,7 +11,6 @@ import sample.mancala.model.Player;
 public class GameLogic {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(GameLogic.class);
-	private final static int TOP_OF_BOARD = 13;
 
 	/**
 	 * Check if a player has won the game
@@ -56,7 +52,7 @@ public class GameLogic {
 		final int[] pitStones = gameState.getPitStones();
 
 		if (!currentPlayer.isYourRegularPit(pos) || pitStones[pos] < 1) {
-			LOGGER.warn("{} cannot move pos {}", currentPlayer, pos);
+			LOGGER.info("{} cannot move pos {}", currentPlayer, pos);
 			return gameState;
 		}
 		return moveStones(pos, gameState);
@@ -85,7 +81,7 @@ public class GameLogic {
 				continue;
 			}
 			if (pit < 0) {
-				pit = TOP_OF_BOARD;
+				pit = gameState.getPitStones().length - 1;
 			}
 
 			// distribute
@@ -103,7 +99,7 @@ public class GameLogic {
 			gameState.incrementCurrentPlayerScore();
 			pitStones[pit] = 0;
 
-			int oppositePit = getOppositePit(pit - currentPlayer.getScorePit(), currentPlayer);
+			int oppositePit = getOppositePit(gameState.getPitStones().length, pit - currentPlayer.getScorePit(), currentPlayer);
 
 			// take enemy stones
 			gameState.incrementCurrentPlayerScore(pitStones[oppositePit]);
@@ -113,10 +109,10 @@ public class GameLogic {
 		return gameState;
 	}
 
-	private int getOppositePit(int diff, Player currentPlayer) {
+	private int getOppositePit(int length, int diff, Player currentPlayer) {
 		int potentialPit = currentPlayer.getScorePit() - diff;
 		if (potentialPit < 0) {
-			return TOP_OF_BOARD + 1 - diff;
+			return length - diff;
 		}
 		return potentialPit;
 	}

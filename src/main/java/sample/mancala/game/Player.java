@@ -1,4 +1,4 @@
-package sample.mancala.model;
+package sample.mancala.game;
 
 import com.google.common.collect.Sets;
 import java.util.Set;

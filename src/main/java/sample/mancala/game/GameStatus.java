@@ -1,4 +1,4 @@
-package sample.mancala.model;
+package sample.mancala.game;
 
 /**
  * Determines if game should continue or if game end condition has been reached.
