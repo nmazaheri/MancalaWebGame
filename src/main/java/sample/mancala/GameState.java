@@ -11,6 +11,7 @@ import sample.mancala.model.Player;
  * Contains data needed to determine game state
  */
 public class GameState {
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(GameState.class);
 
 	private Player currentPlayer;
@@ -26,7 +27,7 @@ public class GameState {
 	}
 
 	public boolean isGameOver() {
-		for (Player player: Player.values()) {
+		for (Player player : Player.values()) {
 			if (!gameBoard.isPlayerFinished(player)) {
 				continue;
 			}
@@ -62,9 +63,7 @@ public class GameState {
 
 	public void handleMove(int pos) {
 		final Player currentPlayer = getCurrentPlayer();
-		final int[] pitStones = getPitStones();
-
-		if (!currentPlayer.isValidRegularPitLocation(pos) || pitStones[pos] < 1) {
+		if (!currentPlayer.isValidRegularPitLocation(pos)) {
 			LOGGER.info("{} cannot move position {}", currentPlayer, pos);
 			return;
 		}
@@ -74,7 +73,7 @@ public class GameState {
 	/**
 	 * Perform a player's turn by moving the stones between pits
 	 *
-	 * @param pit       the pit selected by the user
+	 * @param pit the pit selected by the user
 	 */
 	protected void moveStones(int pit) {
 		final int[] pitStones = getPitStones();
@@ -110,21 +109,22 @@ public class GameState {
 			incrementCurrentPlayerScore();
 			pitStones[pit] = 0;
 
-			int oppositePit = getOppositePit(pitStones.length,
-					pit - currentPlayer.getScorePitLocation(), currentPlayer);
+			int oppositePit = getOppositePitLocation(pit, currentPlayer.getScorePitLocation(),
+					pitStones.length);
 
-			// take enemy stones
+			// steal enemy stones
 			incrementCurrentPlayerScore(pitStones[oppositePit]);
 			pitStones[oppositePit] = 0;
 		}
 		setNextPlayer();
 	}
 
-	private int getOppositePit(int length, int diff, Player currentPlayer) {
-		int potentialPit = currentPlayer.getScorePitLocation() - diff;
-		if (potentialPit < 0) {
+	int getOppositePitLocation(int currentPitLocation, int scorePitLocation, int length) {
+		int diff = currentPitLocation - scorePitLocation;
+		int result = scorePitLocation - diff;
+		if (result < 0) {
 			return length - diff;
 		}
-		return potentialPit;
+		return result;
 	}
 }
