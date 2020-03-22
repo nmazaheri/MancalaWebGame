@@ -29,12 +29,22 @@ public class GameState {
 		return PLAYER_ONE;
 	}
 
+	public void handleGameOver() {
+		if (!gameBoard.isPlayerFinished(currentPlayer)) {
+			return;
+		}
+		gameBoard.scoreAllStones(getNextPlayer());
+		int playerOneScore = gameBoard.getPlayerScore(PLAYER_ONE);
+		int playerTwoScore = gameBoard.getPlayerScore(PLAYER_TWO);
+		gameStatus = GameStatus.handleGameEnd(playerOneScore, playerTwoScore);
+	}
+
 	public void incrementCurrentPlayerScore() {
 		incrementCurrentPlayerScore(1);
 	}
 
 	public void incrementCurrentPlayerScore(int val) {
-		gameBoard.increment(currentPlayer.getScorePit(), val);
+		gameBoard.increment(currentPlayer.getScorePitLocation(), val);
 	}
 
 	public GameBoard getGameBoard() {

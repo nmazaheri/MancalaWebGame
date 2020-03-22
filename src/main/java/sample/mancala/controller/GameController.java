@@ -52,17 +52,11 @@ public class GameController {
 	@GetMapping("/input/{move}")
 	public String handleUserMove(HttpServletRequest request, @PathVariable String move) {
 		final HttpSession session = request.getSession(true);
-		handleMove(session, move);
-		return "redirect:/";
-	}
-
-	private void handleMove(HttpSession session, String move) {
 		GameState gameState = getGameData(session);
-		int pos = Integer.valueOf(move);
-		gameState = gameLogic.handleMove(pos, gameState);
-		final GameStatus gameStatus = gameLogic.checkForWin(gameState);
-		gameState.setGameStatus(gameStatus);
+		gameState = gameLogic.handleMove(Integer.parseInt(move), gameState);
+		gameState.handleGameOver();
 		session.setAttribute(GAME_DATA_SESSION_KEY, gameState);
+		return "redirect:/";
 	}
 
 	private GameState getGameData(HttpSession session) {

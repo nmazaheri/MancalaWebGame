@@ -10,19 +10,23 @@ public enum Player {
 	PLAYER_ONE(Sets.newHashSet(1, 2, 3, 4, 5, 6), 0),
 	PLAYER_TWO(Sets.newHashSet(8, 9, 10, 11, 12, 13), 7);
 
-	private Set<Integer> regularPit;
-	private int scorePit;
+	private Set<Integer> regularPitLocations;
+	private int scorePitLocation;
 
-	Player(Set<Integer> regularPit, int scorePit) {
-		this.regularPit = regularPit;
-		this.scorePit = scorePit;
+	Player(Set<Integer> regularPitLocations, int scorePitLocation) {
+		this.regularPitLocations = regularPitLocations;
+		this.scorePitLocation = scorePitLocation;
 	}
 
-	public boolean isYourRegularPit(int pit) {
-		return this.regularPit.contains(pit);
+	public boolean isValidRegularPitLocation(int pit) {
+		return this.regularPitLocations.contains(pit);
 	}
 
-	public int getScorePit() {
-		return scorePit;
+	public Set<Integer> getRegularPitLocations() {
+		return regularPitLocations;
+	}
+
+	public int getScorePitLocation() {
+		return scorePitLocation;
 	}
 }

@@ -12,47 +12,12 @@ public class GameLogic {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(GameLogic.class);
 
-	/**
-	 * Check if a player has won the game
-	 */
-	public GameStatus checkForWin(GameState gameState) {
-		final int[] pitStones = gameState.getPitStones();
-		if (endGameCondition(pitStones)) {
-			int playerOneScore = pitStones[0];
-			int playerTwoScore = pitStones[7];
-			return GameStatus.handleGameEnd(playerOneScore, playerTwoScore);
-		}
-		return GameStatus.PLAYING;
-	}
-
-	private boolean endGameCondition(final int[] pitStones) {
-		return playerOneBoardEmpty(pitStones) || playerTwoBoardEmpty(pitStones);
-	}
-
-	private boolean playerOneBoardEmpty(final int[] pitStones) {
-		for (int i = 1; i <= 6; i++) {
-			if (pitStones[i] > 0) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	private boolean playerTwoBoardEmpty(final int[] pitStones) {
-		for (int i = 8; i <= 13; i++) {
-			if (pitStones[i] > 0) {
-				return false;
-			}
-		}
-		return true;
-	}
-
 	public GameState handleMove(int pos, GameState gameState) {
 		final Player currentPlayer = gameState.getCurrentPlayer();
 		final int[] pitStones = gameState.getPitStones();
 
-		if (!currentPlayer.isYourRegularPit(pos) || pitStones[pos] < 1) {
-			LOGGER.info("{} cannot move pos {}", currentPlayer, pos);
+		if (!currentPlayer.isValidRegularPitLocation(pos) || pitStones[pos] < 1) {
+			LOGGER.info("{} cannot move position {}", currentPlayer, pos);
 			return gameState;
 		}
 		return moveStones(pos, gameState);
@@ -77,7 +42,7 @@ public class GameLogic {
 		while (stones > 0) {
 			pit--;
 
-			if (pit == nextPlayer.getScorePit()) {
+			if (pit == nextPlayer.getScorePitLocation()) {
 				continue;
 			}
 			if (pit < 0) {
@@ -90,16 +55,17 @@ public class GameLogic {
 		}
 
 		// if you land in your own pit you get to go again
-		if (pit == currentPlayer.getScorePit()) {
+		if (pit == currentPlayer.getScorePitLocation()) {
 			return gameState;
 		}
 
 		// if you land in one of your empty board pits then you capture enemies stones and your own
-		if (pitStones[pit] == 1 && currentPlayer.isYourRegularPit(pit)) {
+		if (pitStones[pit] == 1 && currentPlayer.isValidRegularPitLocation(pit)) {
 			gameState.incrementCurrentPlayerScore();
 			pitStones[pit] = 0;
 
-			int oppositePit = getOppositePit(gameState.getPitStones().length, pit - currentPlayer.getScorePit(), currentPlayer);
+			int oppositePit = getOppositePit(gameState.getPitStones().length,
+					pit - currentPlayer.getScorePitLocation(), currentPlayer);
 
 			// take enemy stones
 			gameState.incrementCurrentPlayerScore(pitStones[oppositePit]);
@@ -110,7 +76,7 @@ public class GameLogic {
 	}
 
 	private int getOppositePit(int length, int diff, Player currentPlayer) {
-		int potentialPit = currentPlayer.getScorePit() - diff;
+		int potentialPit = currentPlayer.getScorePitLocation() - diff;
 		if (potentialPit < 0) {
 			return length - diff;
 		}

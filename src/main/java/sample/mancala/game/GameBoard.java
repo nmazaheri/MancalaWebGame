@@ -23,6 +23,33 @@ public class GameBoard {
 		this.pitStones = pitStones;
 	}
 
+	/**
+	 * Check if a player has won the game
+	 */
+	public boolean isPlayerFinished(Player player) {
+		return player.getRegularPitLocations().stream().mapToInt(playerRegularPit -> playerRegularPit)
+				.noneMatch(regularPit -> pitStones[regularPit] > 0);
+	}
+
+	private void score(Player player, int value) {
+		if (value <= 0) {
+			return;
+		}
+		int scorePitLocation = player.getScorePitLocation();
+		pitStones[scorePitLocation] += value;
+	}
+
+	public void scoreAllStones(Player player) {
+		for (Integer playerRegularPitLocation : player.getRegularPitLocations()) {
+			score(player, pitStones[playerRegularPitLocation]);
+			pitStones[playerRegularPitLocation] = 0;
+		}
+	}
+
+	public int getPlayerScore(Player player) {
+		return pitStones[player.getScorePitLocation()];
+	}
+
 	int[] getPitStones() {
 		return pitStones;
 	}
