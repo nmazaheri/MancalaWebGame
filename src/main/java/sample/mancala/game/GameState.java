@@ -56,7 +56,7 @@ public class GameState {
 	public void handleMove(int pos) {
 		final Player currentPlayer = getCurrentPlayer();
 		if (!isValidMove(pos)) {
-			LOGGER.info("{} cannot move position {}", currentPlayer, pos);
+			LOGGER.info("player {} cannot move pit {}", currentPlayer, pos);
 			return;
 		}
 		moveStones(pos);
@@ -83,7 +83,7 @@ public class GameState {
 		while (stones > 0) {
 			pit--;
 			if (pit == enemyScorePitLocation) {
-				continue;
+				pit--;
 			}
 			if (pit < 0) {
 				pit = pitStones.length - 1;

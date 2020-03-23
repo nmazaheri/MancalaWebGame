@@ -34,16 +34,6 @@ public class GameBoard {
 				.noneMatch(regularPit -> pitStones[regularPit] > 0);
 	}
 
-	private static String handleGameEnd(int playerOneScore, int playerTwoScore) {
-		if (playerOneScore == playerTwoScore) {
-			return Constants.playerTieMessage;
-		}
-		if (playerOneScore > playerTwoScore) {
-			return Constants.playerOneWinMessage;
-		}
-		return Constants.playerTwoWinMessage;
-	}
-
 	private void score(Player player, int value) {
 		if (value <= 0) {
 			return;
@@ -79,10 +69,6 @@ public class GameBoard {
 		return pitStones[player.getScorePitLocation()];
 	}
 
-	public String getGameResult() {
-		return handleGameEnd(getScore(ONE), getScore(TWO));
-	}
-
 	public int getOppositePitLocation(int currentPitLocation, Player player) {
 		int scorePitLocation = player.getScorePitLocation();
 		int diff = currentPitLocation - scorePitLocation;
@@ -91,6 +77,20 @@ public class GameBoard {
 			return pitStones.length - diff;
 		}
 		return result;
+	}
+
+	public String getGameResult() {
+		return handleGameEnd(getScore(ONE), getScore(TWO));
+	}
+
+	private static String handleGameEnd(int playerOneScore, int playerTwoScore) {
+		if (playerOneScore == playerTwoScore) {
+			return Constants.playerTieMessage;
+		}
+		if (playerOneScore > playerTwoScore) {
+			return Constants.playerOneWinMessage;
+		}
+		return Constants.playerTwoWinMessage;
 	}
 
 }

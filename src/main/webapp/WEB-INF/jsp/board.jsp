@@ -4,7 +4,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="en">
-<spring:url value="/resources/css/style.css" var="mainCss"/>
+<spring:url value="resources/css/style.css" var="mainCss"/>
 <link href="${mainCss}" rel="stylesheet"/>
 
 <body>
@@ -23,64 +23,76 @@
             <table>
                 <tr>
                     <td>
-                        <a href="${pageContext.request.contextPath}/input/1"><img src="resources/images/topBoard.jpg"/>
+                        <a href="${pageContext.request.contextPath}/input/1"><img
+                                src="resources/images/topBoard.jpg"/>
                             <div class="pit top">${pitStones[1]}</div>
                         </a>
                     </td>
                     <td>
-                        <a href="${pageContext.request.contextPath}/input/2"><img src="resources/images/topBoard.jpg"/>
+                        <a href="${pageContext.request.contextPath}/input/2"><img
+                                src="resources/images/topBoard.jpg"/>
                             <div class="pit top">${pitStones[2]}</div>
                         </a>
                     </td>
                     <td>
-                        <a href="${pageContext.request.contextPath}/input/3"><img src="resources/images/topBoard.jpg"/>
+                        <a href="${pageContext.request.contextPath}/input/3"><img
+                                src="resources/images/topBoard.jpg"/>
                             <div class="pit top">${pitStones[3]}</div>
                         </a>
                     </td>
                     <td>
-                        <a href="${pageContext.request.contextPath}/input/4"><img src="resources/images/topBoard.jpg"/>
+                        <a href="${pageContext.request.contextPath}/input/4"><img
+                                src="resources/images/topBoard.jpg"/>
                             <div class="pit top">${pitStones[4]}</div>
                         </a>
                     </td>
                     <td>
-                        <a href="${pageContext.request.contextPath}/input/5"><img src="resources/images/topBoard.jpg"/>
+                        <a href="${pageContext.request.contextPath}/input/5"><img
+                                src="resources/images/topBoard.jpg"/>
                             <div class="pit top">${pitStones[5]}</div>
                         </a>
                     </td>
                     <td>
-                        <a href="${pageContext.request.contextPath}/input/6"><img src="resources/images/topBoard.jpg"/>
+                        <a href="${pageContext.request.contextPath}/input/6"><img
+                                src="resources/images/topBoard.jpg"/>
                             <div class="pit top">${pitStones[6]}</div>
                         </a>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <a href="${pageContext.request.contextPath}/input/13"><img src="resources/images/bottomBoard.jpg"/>
+                        <a href="${pageContext.request.contextPath}/input/13"><img
+                                src="resources/images/bottomBoard.jpg"/>
                             <div class="pit bottom">${pitStones[13]}</div>
                         </a>
                     </td>
                     <td>
-                        <a href="${pageContext.request.contextPath}/input/12"><img src="resources/images/bottomBoard.jpg"/>
+                        <a href="${pageContext.request.contextPath}/input/12"><img
+                                src="resources/images/bottomBoard.jpg"/>
                             <div class="pit bottom">${pitStones[12]}</div>
                         </a>
                     </td>
                     <td>
-                        <a href="${pageContext.request.contextPath}/input/11"><img src="resources/images/bottomBoard.jpg"/>
+                        <a href="${pageContext.request.contextPath}/input/11"><img
+                                src="resources/images/bottomBoard.jpg"/>
                             <div class="pit bottom">${pitStones[11]}</div>
                         </a>
                     </td>
                     <td>
-                        <a href="${pageContext.request.contextPath}/input/10"><img src="resources/images/bottomBoard.jpg"/>
+                        <a href="${pageContext.request.contextPath}/input/10"><img
+                                src="resources/images/bottomBoard.jpg"/>
                             <div class="pit bottom">${pitStones[10]}</div>
                         </a>
                     </td>
                     <td>
-                        <a href="${pageContext.request.contextPath}/input/9"><img src="resources/images/bottomBoard.jpg"/>
+                        <a href="${pageContext.request.contextPath}/input/9"><img
+                                src="resources/images/bottomBoard.jpg"/>
                             <div class="pit bottom">${pitStones[9]}</div>
                         </a>
                     </td>
                     <td>
-                        <a href="${pageContext.request.contextPath}/input/8"><img src="resources/images/bottomBoard.jpg"/>
+                        <a href="${pageContext.request.contextPath}/input/8"><img
+                                src="resources/images/bottomBoard.jpg"/>
                             <div class="pit bottom">${pitStones[8]}</div>
                         </a>
                     </td>

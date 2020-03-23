@@ -120,7 +120,6 @@ public class GameControllerTest {
 		expected[10] = 0;
 		assertArrayEquals(expected, gameState.getGameBoard().getPitStones());
 		assertEquals(Player.TWO, gameState.getCurrentPlayer());
-
 	}
 
 	@Test
