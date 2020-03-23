@@ -1,12 +1,8 @@
 <%--Renders game board--%>
-
 <!DOCTYPE html>
-
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <html lang="en">
-
 <spring:url value="/resources/css/style.css" var="mainCss"/>
 <link href="${mainCss}" rel="stylesheet"/>
 
@@ -88,15 +84,7 @@
 </table>
 
 <br>
-
-<c:choose>
-    <c:when test="${gameWinner != null}">
-        <h2 class="win">${gameWinner}</h2>
-    </c:when>
-    <c:otherwise>
-        <p>Current Player: ${currentPlayer}</p>
-    </c:otherwise>
-</c:choose>
-
+<p>Current Player: ${currentPlayer}</p>
+<h2 class="message">${gameMessage}</h2>
 </body>
 </html>
