@@ -22,10 +22,6 @@ public class GameState {
 		currentPlayer = ONE;
 	}
 
-	public int[] getPitStones() {
-		return gameBoard.getPitStones();
-	}
-
 	public boolean isGameOver() {
 		for (Player player : Player.values()) {
 			if (!gameBoard.isPlayerFinished(player)) {
@@ -71,7 +67,7 @@ public class GameState {
 	}
 
 	private boolean isValidMove(int pos) {
-		return currentPlayer.isValidRegularPitLocation(pos) && gameBoard.getPitStones()[pos] > 0;
+		return currentPlayer.isValidRegularPitLocation(pos) && gameBoard.isNotEmpty(pos);
 	}
 
 	/**
@@ -80,7 +76,7 @@ public class GameState {
 	 * @param pit the pit selected by the user
 	 */
 	protected void moveStones(int pit) {
-		final int[] pitStones = getPitStones();
+		final int[] pitStones = gameBoard.getPitStones();
 		final Player currentPlayer = getCurrentPlayer();
 		final int enemyScorePitLocation = currentPlayer.getNextPlayer().getScorePitLocation();
 

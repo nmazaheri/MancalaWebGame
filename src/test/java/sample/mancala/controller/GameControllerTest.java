@@ -55,7 +55,7 @@ public class GameControllerTest {
 						.attributeExists(Constants.CURRENT_PLAYER_MODEL, Constants.PIT_STONE_MODEL))
 				.andExpect(model().attribute(Constants.CURRENT_PLAYER_MODEL, Player.ONE))
 				.andExpect(
-						model().attribute(Constants.PIT_STONE_MODEL, new GameState().getPitStones()));
+						model().attribute(Constants.PIT_STONE_MODEL, new GameState().getGameBoard().getPitStones()));
 	}
 
 	@Test
@@ -68,7 +68,7 @@ public class GameControllerTest {
 				.andExpect(view().name(Constants.BOARD_VIEW))
 				.andExpect(status().is2xxSuccessful())
 				.andExpect(model().size(3))
-				.andExpect(model().attribute(Constants.GAME_WINNER_MODEL, Constants.playerOneWinMessage))
+				.andExpect(model().attribute(Constants.GAME_MESSAGE_MODEL, Constants.playerOneWinMessage))
 				.andExpect(model().attribute(Constants.PIT_STONE_MODEL, expected));
 	}
 
@@ -85,7 +85,7 @@ public class GameControllerTest {
 		expected[3] = 3;
 		expected[4] = 1;
 		expected[5] = 0;
-		assertArrayEquals(expected, gameState.getPitStones());
+		assertArrayEquals(expected, gameState.getGameBoard().getPitStones());
 		assertEquals(Player.TWO, gameState.getCurrentPlayer());
 	}
 
@@ -101,7 +101,7 @@ public class GameControllerTest {
 		expected[0] = 5;
 		expected[1] = 3;
 		expected[2] = 0;
-		assertArrayEquals(expected, gameState.getPitStones());
+		assertArrayEquals(expected, gameState.getGameBoard().getPitStones());
 		assertEquals(Player.ONE, gameState.getCurrentPlayer());
 	}
 
@@ -118,7 +118,7 @@ public class GameControllerTest {
 		expected[5] = 3;
 		expected[6] = 0;
 		expected[10] = 0;
-		assertArrayEquals(expected, gameState.getPitStones());
+		assertArrayEquals(expected, gameState.getGameBoard().getPitStones());
 		assertEquals(Player.TWO, gameState.getCurrentPlayer());
 
 	}
@@ -163,7 +163,7 @@ public class GameControllerTest {
 	}
 
 	private void assertUnchangedSessionFor(Player player) {
-		assertArrayEquals(getTestPit(), gameState.getPitStones());
+		assertArrayEquals(getTestPit(), gameState.getGameBoard().getPitStones());
 		assertEquals(player, gameState.getCurrentPlayer());
 	}
 

@@ -27,10 +27,11 @@ public class GameController {
 		if (gameState.isGameOver()) {
 			String winResult = gameState.getGameBoard().getGameResult();
 			LOGGER.info("{} wins", winResult);
-			model.put(Constants.GAME_WINNER_MODEL, winResult);
+			model.put(Constants.GAME_MESSAGE_MODEL, winResult);
 			session.invalidate();
 		}
-		model.put(Constants.PIT_STONE_MODEL, gameState.getPitStones());
+		model.put(Constants.PIT_STONE_MODEL, gameState
+				.getGameBoard().getPitStones());
 		model.put(Constants.CURRENT_PLAYER_MODEL, gameState.getCurrentPlayer());
 		return Constants.BOARD_VIEW;
 	}

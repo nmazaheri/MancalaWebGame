@@ -63,6 +63,10 @@ public class GameBoard {
 		return pitStones;
 	}
 
+	public boolean isNotEmpty(int pos) {
+		return pitStones[pos] > 0;
+	}
+
 	public void increment(int pos, int val) {
 		if (pos >= pitStones.length || pos < 0) {
 			LOGGER.warn("invalid position = {}", pos);

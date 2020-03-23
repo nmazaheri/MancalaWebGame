@@ -1,3 +1,4 @@
+<%--suppress HtmlRequiredAltAttribute --%>
 <%--Renders game board--%>
 <!DOCTYPE html>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
@@ -22,54 +23,66 @@
             <table>
                 <tr>
                     <td>
-                        <a href="/input/1"><img src="resources/images/topBoard.jpg"/></a>
-                        <div class="pit top">${pitStones[1]}</div>
+                        <a href="${pageContext.request.contextPath}/input/1"><img src="resources/images/topBoard.jpg"/>
+                            <div class="pit top">${pitStones[1]}</div>
+                        </a>
                     </td>
                     <td>
-                        <a href="/input/2"><img src="resources/images/topBoard.jpg"/></a>
-                        <div class="pit top">${pitStones[2]}</div>
+                        <a href="${pageContext.request.contextPath}/input/2"><img src="resources/images/topBoard.jpg"/>
+                            <div class="pit top">${pitStones[2]}</div>
+                        </a>
                     </td>
                     <td>
-                        <a href="/input/3"><img src="resources/images/topBoard.jpg"/></a>
-                        <div class="pit top">${pitStones[3]}</div>
+                        <a href="${pageContext.request.contextPath}/input/3"><img src="resources/images/topBoard.jpg"/>
+                            <div class="pit top">${pitStones[3]}</div>
+                        </a>
                     </td>
                     <td>
-                        <a href="/input/4"><img src="resources/images/topBoard.jpg"/></a>
-                        <div class="pit top">${pitStones[4]}</div>
+                        <a href="${pageContext.request.contextPath}/input/4"><img src="resources/images/topBoard.jpg"/>
+                            <div class="pit top">${pitStones[4]}</div>
+                        </a>
                     </td>
                     <td>
-                        <a href="/input/5"><img src="resources/images/topBoard.jpg"/></a>
-                        <div class="pit top">${pitStones[5]}</div>
+                        <a href="${pageContext.request.contextPath}/input/5"><img src="resources/images/topBoard.jpg"/>
+                            <div class="pit top">${pitStones[5]}</div>
+                        </a>
                     </td>
                     <td>
-                        <a href="/input/6"><img src="resources/images/topBoard.jpg"/></a>
-                        <div class="pit top">${pitStones[6]}</div>
+                        <a href="${pageContext.request.contextPath}/input/6"><img src="resources/images/topBoard.jpg"/>
+                            <div class="pit top">${pitStones[6]}</div>
+                        </a>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <a href="/input/13"><img src="resources/images/bottomBoard.jpg"/></a>
-                        <div class="pit bottom">${pitStones[13]}</div>
+                        <a href="${pageContext.request.contextPath}/input/13"><img src="resources/images/bottomBoard.jpg"/>
+                            <div class="pit bottom">${pitStones[13]}</div>
+                        </a>
                     </td>
                     <td>
-                        <a href="/input/12"><img src="resources/images/bottomBoard.jpg"/></a>
-                        <div class="pit bottom">${pitStones[12]}</div>
+                        <a href="${pageContext.request.contextPath}/input/12"><img src="resources/images/bottomBoard.jpg"/>
+                            <div class="pit bottom">${pitStones[12]}</div>
+                        </a>
                     </td>
                     <td>
-                        <a href="/input/11"><img src="resources/images/bottomBoard.jpg"/></a>
-                        <div class="pit bottom">${pitStones[11]}</div>
+                        <a href="${pageContext.request.contextPath}/input/11"><img src="resources/images/bottomBoard.jpg"/>
+                            <div class="pit bottom">${pitStones[11]}</div>
+                        </a>
                     </td>
                     <td>
-                        <a href="/input/10"><img src="resources/images/bottomBoard.jpg"/></a>
-                        <div class="pit bottom">${pitStones[10]}</div>
+                        <a href="${pageContext.request.contextPath}/input/10"><img src="resources/images/bottomBoard.jpg"/>
+                            <div class="pit bottom">${pitStones[10]}</div>
+                        </a>
                     </td>
                     <td>
-                        <a href="/input/9"><img src="resources/images/bottomBoard.jpg"/></a>
-                        <div class="pit bottom">${pitStones[9]}</div>
+                        <a href="${pageContext.request.contextPath}/input/9"><img src="resources/images/bottomBoard.jpg"/>
+                            <div class="pit bottom">${pitStones[9]}</div>
+                        </a>
                     </td>
                     <td>
-                        <a href="/input/8"><img src="resources/images/bottomBoard.jpg"/></a>
-                        <div class="pit bottom">${pitStones[8]}</div>
+                        <a href="${pageContext.request.contextPath}/input/8"><img src="resources/images/bottomBoard.jpg"/>
+                            <div class="pit bottom">${pitStones[8]}</div>
+                        </a>
                     </td>
                 </tr>
             </table>
@@ -84,7 +97,7 @@
 </table>
 
 <br>
-<p>Current Player: ${currentPlayer}</p>
 <h2 class="message">${gameMessage}</h2>
+<p>Current Player: ${currentPlayer}</p>
 </body>
 </html>
