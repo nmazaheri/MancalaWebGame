@@ -5,7 +5,7 @@ Runs a webserver containg Mancala the game which is able to be played by two pla
 
 ## Playing the game
 1. mvn spring-boot:run
-2. Open a HTTP URL on port 8080 which reaches your localhost (setup in your hosts file)
+2. Open http://localhost:8080/ in your web browser
 
 ## Features
 - JUnit tests located [here](/src/test/java/sample/mancala)
