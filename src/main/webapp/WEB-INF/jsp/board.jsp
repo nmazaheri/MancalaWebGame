@@ -109,7 +109,13 @@
 </table>
 
 <br>
-<h2 class="message">${gameMessage}</h2>
-<p>Current Player: ${currentPlayer}</p>
+<c:choose>
+    <c:when test="${gameMessage != null}">
+        <h2 class="message">${gameMessage}</h2>
+    </c:when>
+    <c:otherwise>
+        <p>Current Player: ${currentPlayer}</p>
+    </c:otherwise>
+</c:choose>
 </body>
 </html>
