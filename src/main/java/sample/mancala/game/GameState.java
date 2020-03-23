@@ -1,4 +1,4 @@
-package sample.mancala;
+package sample.mancala.game;
 
 import static sample.mancala.model.Player.ONE;
 
@@ -8,7 +8,7 @@ import sample.mancala.model.GameBoard;
 import sample.mancala.model.Player;
 
 /**
- * Contains data needed to determine game state
+ * Contains logic needed to determine and manipulate game state
  */
 public class GameState {
 
@@ -31,10 +31,6 @@ public class GameState {
 			return true;
 		}
 		return false;
-	}
-
-	public String getGameResult() {
-		return gameBoard.getGameResult();
 	}
 
 	public void incrementCurrentPlayerScore() {
@@ -75,7 +71,7 @@ public class GameState {
 	 *
 	 * @param pit the pit selected by the user
 	 */
-	protected void moveStones(int pit) {
+	private void moveStones(int pit) {
 		final int[] pitStones = gameBoard.getPitStones();
 		final Player currentPlayer = getCurrentPlayer();
 		final int enemyScorePitLocation = currentPlayer.getNextPlayer().getScorePitLocation();

@@ -15,7 +15,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import sample.mancala.GameState;
+import sample.mancala.game.GameState;
 import sample.mancala.model.Constants;
 import sample.mancala.model.Player;
 

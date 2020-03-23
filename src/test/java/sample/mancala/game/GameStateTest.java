@@ -1,4 +1,4 @@
-package sample.mancala;
+package sample.mancala.game;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -19,27 +19,27 @@ public class GameStateTest {
 
 	@Test
 	public void testPlayerTwoWins() {
-		int[] testBoard = {4, 0, 0, 0, 0, 0, 0, 4, 1, 1, 0, 1, 0, 1};
+		int[] testBoard = {4, 0, 0, 0, 0, 0, 0, 4, 1, 2, 0, 1, 0, 1};
 		gameState.getGameBoard().setPitStones(testBoard);
 
 		gameState.isGameOver();
 		GameBoard gameBoard = gameState.getGameBoard();
 		assertEquals(4, gameBoard.getScore(Player.ONE));
-		assertEquals(8, gameBoard.getScore(Player.TWO));
-		assertEquals(Constants.playerTwoWinMessage, gameState.getGameResult());
+		assertEquals(9, gameBoard.getScore(Player.TWO));
+		assertEquals(Constants.playerTwoWinMessage, gameState.getGameBoard().getGameResult());
 	}
 
 	@Test
 	public void testPlayerOneWins() {
 		gameState.setNextPlayer();
-		int[] testBoard = {4, 1, 0, 1, 0, 1, 0, 4, 0, 0, 0, 0, 0, 0};
+		int[] testBoard = {4, 1, 0, 3, 0, 1, 0, 4, 0, 0, 0, 0, 0, 0};
 		gameState.getGameBoard().setPitStones(testBoard);
 
 		gameState.isGameOver();
 		GameBoard gameBoard = gameState.getGameBoard();
-		assertEquals(7, gameBoard.getScore(Player.ONE));
+		assertEquals(9, gameBoard.getScore(Player.ONE));
 		assertEquals(4, gameBoard.getScore(Player.TWO));
-		assertEquals(Constants.playerOneWinMessage, gameState.getGameResult());
+		assertEquals(Constants.playerOneWinMessage, gameState.getGameBoard().getGameResult());
 	}
 
 	@Test
@@ -51,7 +51,7 @@ public class GameStateTest {
 		GameBoard gameBoard = gameState.getGameBoard();
 		assertEquals(4, gameBoard.getScore(Player.ONE));
 		assertEquals(4, gameBoard.getScore(Player.TWO));
-		assertEquals(Constants.playerTieMessage, gameState.getGameResult());
+		assertEquals(Constants.playerTieMessage, gameState.getGameBoard().getGameResult());
 	}
 
 
