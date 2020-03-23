@@ -31,7 +31,6 @@ public class GameControllerTest {
 
 	private GameState gameState;
 
-
 	@Before
 	public void setUp() {
 		int[] testPit = getTestPit();
