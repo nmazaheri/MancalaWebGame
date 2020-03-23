@@ -79,4 +79,14 @@ public class GameBoard {
 		return handleGameEnd(getScore(ONE), getScore(TWO));
 	}
 
+	public int getOppositePitLocation(int currentPitLocation, Player player) {
+		int scorePitLocation = player.getScorePitLocation();
+		int diff = currentPitLocation - scorePitLocation;
+		int result = scorePitLocation - diff;
+		if (result < 0) {
+			return pitStones.length - diff;
+		}
+		return result;
+	}
+
 }

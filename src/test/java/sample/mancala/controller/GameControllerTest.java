@@ -124,7 +124,23 @@ public class GameControllerTest {
 	}
 
 	@Test
-	public void testInvalidMovesForPlayerOne() throws Exception {
+	public void testPlayerSwitching() throws Exception {
+		assertEquals(Player.ONE, gameState.getCurrentPlayer());
+		mvc.perform(get("/input/5")
+				.sessionAttr(Constants.GAME_DATA_SESSION_KEY, gameState))
+				.andExpect(status().is3xxRedirection())
+				.andExpect(view().name("redirect:/"));
+		assertEquals(Player.TWO, gameState.getCurrentPlayer());
+
+		mvc.perform(get("/input/10")
+				.sessionAttr(Constants.GAME_DATA_SESSION_KEY, gameState))
+				.andExpect(status().is3xxRedirection())
+				.andExpect(view().name("redirect:/"));
+		assertEquals(Player.ONE, gameState.getCurrentPlayer());
+	}
+
+	@Test
+	public void testPlayerOneInvalidMoves() throws Exception {
 		for (int i = 7; i < 14; i++) {
 			mvc.perform(get("/input/" + i)
 					.sessionAttr(Constants.GAME_DATA_SESSION_KEY, gameState))
@@ -133,7 +149,6 @@ public class GameControllerTest {
 
 			assertUnchangedSessionFor(Player.ONE);
 		}
-
 		mvc.perform(get("/input/0")
 				.sessionAttr(Constants.GAME_DATA_SESSION_KEY, gameState))
 				.andExpect(status().is3xxRedirection())
@@ -153,7 +168,7 @@ public class GameControllerTest {
 	}
 
 	@Test
-	public void testInvalidMovesForPlayerTwo() throws Exception {
+	public void testPlayerTwoInvalidMoves() throws Exception {
 		gameState.setNextPlayer();
 		for (int i = 0; i < 8; i++) {
 			mvc.perform(get("/input/" + i)
@@ -163,6 +178,11 @@ public class GameControllerTest {
 
 			assertUnchangedSessionFor(Player.TWO);
 		}
+		mvc.perform(get("/input/7")
+				.sessionAttr(Constants.GAME_DATA_SESSION_KEY, gameState))
+				.andExpect(status().is3xxRedirection())
+				.andExpect(view().name("redirect:/"));
+		assertUnchangedSessionFor(Player.TWO);
 
 		mvc.perform(get("/input/12")
 				.sessionAttr(Constants.GAME_DATA_SESSION_KEY, gameState))
@@ -170,5 +190,4 @@ public class GameControllerTest {
 				.andExpect(view().name("redirect:/"));
 		assertUnchangedSessionFor(Player.TWO);
 	}
-
 }

@@ -63,11 +63,15 @@ public class GameState {
 
 	public void handleMove(int pos) {
 		final Player currentPlayer = getCurrentPlayer();
-		if (!currentPlayer.isValidRegularPitLocation(pos)) {
+		if (!isValidMove(pos)) {
 			LOGGER.info("{} cannot move position {}", currentPlayer, pos);
 			return;
 		}
 		moveStones(pos);
+	}
+
+	private boolean isValidMove(int pos) {
+		return currentPlayer.isValidRegularPitLocation(pos) && gameBoard.getPitStones()[pos] > 0;
 	}
 
 	/**
@@ -86,7 +90,6 @@ public class GameState {
 
 		while (stones > 0) {
 			pit--;
-
 			if (pit == enemyScorePitLocation) {
 				continue;
 			}
@@ -109,22 +112,12 @@ public class GameState {
 			incrementCurrentPlayerScore();
 			pitStones[pit] = 0;
 
-			int oppositePit = getOppositePitLocation(pit, currentPlayer.getScorePitLocation(),
-					pitStones.length);
+			int oppositePit = gameBoard.getOppositePitLocation(pit, currentPlayer);
 
 			// steal enemy stones
 			incrementCurrentPlayerScore(pitStones[oppositePit]);
 			pitStones[oppositePit] = 0;
 		}
 		setNextPlayer();
-	}
-
-	int getOppositePitLocation(int currentPitLocation, int scorePitLocation, int length) {
-		int diff = currentPitLocation - scorePitLocation;
-		int result = scorePitLocation - diff;
-		if (result < 0) {
-			return length - diff;
-		}
-		return result;
 	}
 }
